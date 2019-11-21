@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <body>
 <h2>Consultar</h2>
@@ -10,7 +13,7 @@ Director: <input type="text" name="director">
 </form>
 
 
-<h2>Información de los empleados:</h2>
+<h2>InformaciÃ³n de los empleados:</h2>
 	<table id="tabla">
 		<tr>		
 			<td style="height: 28px; width: 150px;">Nombre</td>
