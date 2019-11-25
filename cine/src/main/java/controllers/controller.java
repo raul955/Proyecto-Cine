@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DAO.BBDD;
 import cine.pelicula;
+import cine.usuario;
 
 /**
  * Servlet implementation class controller
@@ -32,49 +33,53 @@ public class controller extends HttpServlet {
 	String url = "jdbc:oracle:thin:@192.168.14.203:1521:xe";
 	String user = "cine";
 	String pass = "cine";
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public controller() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public controller() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
-		
+		// doGet(request, response);
+
 		String value = request.getParameter("action");
-		
-			if(value.equals("mostrarInformacion")) {
-			
+
+		if (value.equals("mostrarInformacion")) {
+
 			BBDD BBDD = new BBDD();
 			RequestDispatcher rd;
 			String director = request.getParameter("director");
-			
+
 			try {
-				
-				
-				List<pelicula> pel = BBDD.mostrarTablaPeliculas(director);			
+
+				BBDD.finalizar(director);
+				List<pelicula> pel = BBDD.mostrarTablaPeliculas(director);
 				request.setAttribute("listaPel", pel);
-				
-				rd = request.getRequestDispatcher("ConsultaDir.jsp");
-								
+
+				rd = request.getRequestDispatcher("listapeliculas.jsp");
+
 				rd.forward(request, response);
-				
+
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -82,8 +87,198 @@ public class controller extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else if (value.equals("loginValidate")) {
+
+			BBDD BBDD = new BBDD();
+			RequestDispatcher rd;
+			String usuario = request.getParameter("usuario");
+			String password = request.getParameter("password");
+
+			try {
+
+				List<usuario> usr = BBDD.unsuccesfullLogin(usuario, password);
+
+				if (!usr.isEmpty()) {
+					request.setAttribute("listaUsr", usr);
+
+					rd = request.getRequestDispatcher("login.jsp");
+
+					rd.forward(request, response);
+
+				} else {
+
+					request.setAttribute("user", usuario);
+
+					rd = request.getRequestDispatcher("welcome.jsp");
+
+					rd.forward(request, response);
+
+				}
+
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (value.equals("mantenimientojsp")) {
+
+			BBDD BBDD = new BBDD();
+			RequestDispatcher rd;
+			// String usuario = request.getParameter("usuario");
+			// String password = request.getParameter("password");
+
+			try {
+
+				List<pelicula> pel = BBDD.mostrarTodo();
+
+				request.setAttribute("listaPel", pel);
+
+				rd = request.getRequestDispatcher("mantenimiento.jsp");
+
+				rd.forward(request, response);
+
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (value.equals("crearPelicula")) {
+
+			BBDD BBDD = new BBDD();
+			RequestDispatcher rd;
+
+			String director = request.getParameter("director");
+			String titulo = request.getParameter("titulo");
+			int id = Integer.parseInt(request.getParameter("id"));
+
+			try {
+
+				BBDD.insertarPelicula(director, titulo, id);
+
+				String mensaje = "Película insertada";
+
+				request.setAttribute("men", mensaje);
+
+				rd = request.getRequestDispatcher("nuevaPelicula.jsp");
+
+				rd.forward(request, response);
+
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				rd = request.getRequestDispatcher("errorExistente.jsp");
+				e.printStackTrace();
+			}
+
+		} else if (value.equals("modificarPelicula")) {
+
+			BBDD BBDD = new BBDD();
+			RequestDispatcher rd;
+
+			int id = Integer.parseInt(request.getParameter("id"));
+			String director = request.getParameter("director");
+			String titulo = request.getParameter("titulo");
+
+			try {
+
+				String mensaje = "Película modificada";
+
+				BBDD.modificarPelicula(id, director, titulo);
+
+				request.setAttribute("men", mensaje);
+
+				rd = request.getRequestDispatcher("modificarPelicula.jsp");
+
+				rd.forward(request, response);
+
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				rd = request.getRequestDispatcher("errorExistente.jsp");
+				e.printStackTrace();
+			}
+		} else if (value.equals("borrarPelicula")) {
+
+			BBDD BBDD = new BBDD();
+			RequestDispatcher rd;
+
+			int id = Integer.parseInt(request.getParameter("id"));
+
+			try {
+
+				String mensaje = "Película borrada";
+
+				BBDD.borrarPelicula(id);
+
+				request.setAttribute("men", mensaje);
+
+				rd = request.getRequestDispatcher("borrarPelicula.jsp");
+
+				rd.forward(request, response);
+
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				rd = request.getRequestDispatcher("errorBorrado.jsp");
+				e.printStackTrace();
+			}
+
+		} else if (value.equals("altaUsuario")) {
+
+			BBDD BBDD = new BBDD();
+			RequestDispatcher rd;
+
+			String usuario = request.getParameter("usuario");
+			String password = request.getParameter("password");
+
+			try {
+
+				String mensaje = "Usuario insertado";
+
+				BBDD.altaUsuario(usuario, password);
+
+				request.setAttribute("men", mensaje);
+
+				rd = request.getRequestDispatcher("newUser.jsp");
+
+				rd.forward(request, response);
+
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				rd = request.getRequestDispatcher("errorBorrado.jsp");
+				e.printStackTrace();
+			}
+
+		} else if (value.equals("finalizar")) {
+
+			BBDD BBDD = new BBDD();
+			RequestDispatcher rd;
+
+			List<pelicula> pel = BBDD.devuelveFinalizar();
+			System.out.println(pel.toString());
+			request.setAttribute("men", pel);
+
+			rd = request.getRequestDispatcher("finalizar.jsp");
+
+			rd.forward(request, response);
+			/*falta rellenar la lista para guardar los directores consultados.
+			 * modificacion realizada en el primer método de BBDD
+			 * 2 metodos implementados en BBDD
+			 * 
+			 */
 		}
-		
+
 	}
 
 }

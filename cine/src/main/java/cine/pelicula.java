@@ -24,6 +24,17 @@ public class pelicula {
 		this.id = id;
 	}
 
+	public pelicula(String nombre, String director) {
+		super();
+		this.nombre = nombre;
+		this.director = director;
+	}
+
+	public pelicula(String director) {
+		super();
+		this.director = director;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
