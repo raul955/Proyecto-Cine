@@ -71,7 +71,7 @@ public class controller extends HttpServlet {
 				List<pelicula> pel = BBDD.mostrarTablaPeliculas(director);			
 				request.setAttribute("listaPel", pel);
 				
-				rd = request.getRequestDispatcher("ConsultaDir.jsp");
+				rd = request.getRequestDispatcher("consultaDir.jsp");
 								
 				rd.forward(request, response);
 				

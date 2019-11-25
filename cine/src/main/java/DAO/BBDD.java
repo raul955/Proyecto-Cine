@@ -19,7 +19,7 @@ public class BBDD {
 		ResultSet rs;
 		int result;
 		String forName = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@192.168.14.203:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.56.101:1521:xe";
 		String user = "cine";
 		String pass = "cine";
 	
@@ -32,7 +32,7 @@ public class BBDD {
 			
 			con = DriverManager.getConnection(url,user,pass);
 			
-			pst = con.prepareStatement("SELECT * FROM cine WHERE director = ?");
+			pst = con.prepareStatement("SELECT * FROM cine WHERE director = '"+director+"'");
 			
 			pst.setString(1, director);
 			
@@ -40,10 +40,9 @@ public class BBDD {
 			
 			while(rs.next()) {
 				
-				pel = new pelicula(rs.getString("nombre"),rs.getString("director"),rs.getInt("id"));
+				pel = new pelicula(rs.getString("director"),rs.getString("titulo"),rs.getInt("id"));
 				
 			}
-			
 				
 			return pel;
 		
@@ -63,8 +62,13 @@ public class BBDD {
 				
 				while(rs.next()) {
 					
-					lista.add(new pelicula(rs.getString("nombre"),rs.getString("director"),rs.getInt("id")));
+					lista.add(new pelicula(rs.getString("director"),rs.getString("titulo"),rs.getInt("id")));
 					
+				}
+				
+				if(lista.isEmpty()) {
+					lista.add(new pelicula("", ""));
+					lista.add(new pelicula("Sin resultado", "Realice una nueva búsqueda"));
 				}
 				
 				return lista;

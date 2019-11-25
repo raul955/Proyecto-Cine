@@ -13,7 +13,7 @@ Director: <input type="text" name="director">
 </form>
 
 
-<h2>Información de los empleados:</h2>
+<h2>Informacion de los empleados:</h2>
 	<table id="tabla">
 		<tr>		
 			<td style="height: 28px; width: 150px;">Nombre</td>
@@ -29,7 +29,8 @@ Director: <input type="text" name="director">
 		</c:forEach>
 	</table>
 
-<a href="index.jsp"><input type="button" value="Volver" style="height: 28px; width: 500px;"/></a>
+<a href="index.jsp"><input type="button" value="Volver"/></a>
+<a href="index.jsp"><input type="button" value="Finalizar"/></a>
 
 </body>
 </html>

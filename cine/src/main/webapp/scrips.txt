@@ -1,0 +1,16 @@
+create table cine (
+
+director VARCHAR2(128),
+titulo VARCHAR2(128),
+fecha date,
+id number
+
+);
+
+
+insert into cine(director,titulo,fecha,id)values('fernando costa','titulo5','',5);
+insert into cine(director,titulo,fecha,id)values('fernando costa','titulo4','',4);
+insert into cine(director,titulo,fecha,id)values('fernando costa','titulo3','',3);
+insert into cine(director,titulo,fecha,id)values('ayax','titulo2','',2);
+insert into cine(director,titulo,fecha,id)values('prox','titulo1','',1);
+insert into cine(director,titulo,fecha,id)values('delaossa','titulo6','',6);
