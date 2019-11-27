@@ -24,7 +24,7 @@ public class BBDD {
 	String url = "jdbc:oracle:thin:@192.168.56.101:1521:xe";
 	String user = "cine";
 	String pass = "cine";
-	ArrayList<pelicula> directorr = new ArrayList<pelicula>();
+	ArrayList<String> directorr = new ArrayList<String>();
 
 	public List<pelicula> mostrarTablaPeliculas(String director) throws ClassNotFoundException, SQLException {
 
@@ -40,11 +40,12 @@ public class BBDD {
 
 		while (rs.next()) {
 
-			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"), rs.getInt("id")));
-			directorr.add(new pelicula(rs.getString("director")));
-			
+			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"), rs.getInt("id")));
+			if (!directorr.contains(rs.getString("director"))) {
+				directorr.add(rs.getString("director"));
+			}
+
 		}
-		
 
 		if (lista.isEmpty()) {
 			lista.add(new pelicula("", ""));
@@ -98,7 +99,7 @@ public class BBDD {
 
 		while (rs.next()) {
 
-			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"), rs.getInt("id")));
+			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"), rs.getInt("id")));
 
 		}
 
@@ -110,7 +111,7 @@ public class BBDD {
 
 	}
 
-	public void insertarPelicula(String director, String titulo, int id) throws ClassNotFoundException, SQLException {
+	public void insertarPelicula(String director, String titulo,String fecha, int id) throws ClassNotFoundException, SQLException {
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -119,11 +120,11 @@ public class BBDD {
 		st = con.createStatement();
 
 		rs = st.executeQuery(
-				"insert into cine(director,titulo,id)values('" + director + "','" + titulo + "','" + id + "')");
+				"insert into cine(director,titulo,fecha,id)values('" + director + "','" + titulo + "','"+fecha+"','" + id + "')");
 
 	}
 
-	public void modificarPelicula(int id, String director, String titulo) throws ClassNotFoundException, SQLException {
+	public void modificarPelicula(int id, String director,String titulo, String fecha) throws ClassNotFoundException, SQLException {
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -133,6 +134,7 @@ public class BBDD {
 
 		rs = st.executeQuery("update cine set titulo = '" + titulo + "' where id=" + id);
 		rs = st.executeQuery("update cine set director = '" + director + "' where id=" + id);
+		rs = st.executeQuery("update cine set fecha = '" + fecha + "' where id=" + id);
 
 	}
 
@@ -147,7 +149,7 @@ public class BBDD {
 		rs = st.executeQuery("delete from cine where id=" + id);
 
 	}
-	
+
 	public void altaUsuario(String usuario, String password) throws ClassNotFoundException, SQLException {
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -156,35 +158,11 @@ public class BBDD {
 
 		st = con.createStatement();
 
-		rs = st.executeQuery("insert into usuarios(usuario,password)values('"+usuario+"','"+password+"')");
+		rs = st.executeQuery("insert into usuarios(usuario,password)values('" + usuario + "','" + password + "')");
 
 	}
-	
-	public void finalizar(String director) throws ClassNotFoundException, SQLException {
 
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-
-		con = DriverManager.getConnection(url, user, pass);
-
-		st = con.createStatement();
-
-		rs = st.executeQuery("select * from cine where director like('" + director + "')");
-
-		while (rs.next()) {
-
-			directorr.add(new pelicula(rs.getString("director")));
-			
-		}
-		
-
-		if (directorr.isEmpty()) {
-			directorr.add(new pelicula(""));
-			directorr.add(new pelicula("Sin resultado"));
-		}
-
-	}
-	
-	public List<pelicula> devuelveFinalizar(){
+	public List<String> devuelveFinalizar() {
 		return directorr;
 	}
 

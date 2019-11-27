@@ -12,12 +12,14 @@
 		<tr>
 			<td style="height: 28px; width: 150px;">Director</td>
 			<td style="height: 28px; width: 150px;">Titulo</td>
+			<td style="height: 28px; width: 150px;">Fecha</td>
 			<td style="height: 28px; width: 150px;">ID</td>
 		<tr>
 			<c:forEach items="${listaPel}" var="info">
 				<tr>
 					<td>${info.nombre }</td>
 					<td>${info.director }</td>
+					<td>${info.fecha }</td>
 					<td>${info.id }</td>
 				</tr>
 			</c:forEach>

@@ -13,8 +13,10 @@
 </form>
 
 <form method="POST" action="consultaDir.jsp">
-<input type="submit" value="Consultar directores" style="height: 28px; width: 500px;"/>
+<input type="submit" value="Consultar directores" style="height: 28px; width: 500px;"/></br></br>
 </form>
+
+<a href="salir.jsp"><input type="button" value="Salir" style="height: 28px; width: 500px;"/></a>
 
 </div>
 

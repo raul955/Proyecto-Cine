@@ -6,14 +6,14 @@ public class pelicula {
 
 	private String nombre;
 	private String director;
-	private Date date;
+	private String fecha;
 	private int id;
 	
-	public pelicula(String nombre, String director, Date date, int id) {
+	public pelicula(String nombre, String director, String fecha, int id) {
 		super();
 		this.nombre = nombre;
 		this.director = director;
-		this.date = date;
+		this.fecha = fecha;
 		this.id = id;
 	}
 
@@ -51,12 +51,12 @@ public class pelicula {
 		this.director = director;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getFecha() {
+		return fecha;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
 	public int getId() {

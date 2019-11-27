@@ -33,6 +33,7 @@ public class controller extends HttpServlet {
 	String url = "jdbc:oracle:thin:@192.168.14.203:1521:xe";
 	String user = "cine";
 	String pass = "cine";
+	BBDD BBDD;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,6 +41,7 @@ public class controller extends HttpServlet {
 	public controller() {
 		super();
 		// TODO Auto-generated constructor stub
+		BBDD =  new BBDD();
 	}
 
 	/**
@@ -66,13 +68,11 @@ public class controller extends HttpServlet {
 
 		if (value.equals("mostrarInformacion")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 			String director = request.getParameter("director");
 
 			try {
-
-				BBDD.finalizar(director);
 				List<pelicula> pel = BBDD.mostrarTablaPeliculas(director);
 				request.setAttribute("listaPel", pel);
 
@@ -89,7 +89,7 @@ public class controller extends HttpServlet {
 			}
 		} else if (value.equals("loginValidate")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 			String usuario = request.getParameter("usuario");
 			String password = request.getParameter("password");
@@ -125,7 +125,7 @@ public class controller extends HttpServlet {
 
 		} else if (value.equals("mantenimientojsp")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 			// String usuario = request.getParameter("usuario");
 			// String password = request.getParameter("password");
@@ -150,16 +150,17 @@ public class controller extends HttpServlet {
 
 		} else if (value.equals("crearPelicula")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 
 			String director = request.getParameter("director");
 			String titulo = request.getParameter("titulo");
+			String fecha = request.getParameter("fecha");
 			int id = Integer.parseInt(request.getParameter("id"));
 
 			try {
 
-				BBDD.insertarPelicula(director, titulo, id);
+				BBDD.insertarPelicula(director, titulo,fecha, id);
 
 				String mensaje = "Película insertada";
 
@@ -179,18 +180,19 @@ public class controller extends HttpServlet {
 
 		} else if (value.equals("modificarPelicula")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 
 			int id = Integer.parseInt(request.getParameter("id"));
 			String director = request.getParameter("director");
 			String titulo = request.getParameter("titulo");
+			String fecha = request.getParameter("fecha");
 
 			try {
 
 				String mensaje = "Película modificada";
 
-				BBDD.modificarPelicula(id, director, titulo);
+				BBDD.modificarPelicula(id, director,fecha, titulo);
 
 				request.setAttribute("men", mensaje);
 
@@ -207,7 +209,7 @@ public class controller extends HttpServlet {
 			}
 		} else if (value.equals("borrarPelicula")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 
 			int id = Integer.parseInt(request.getParameter("id"));
@@ -234,7 +236,7 @@ public class controller extends HttpServlet {
 
 		} else if (value.equals("altaUsuario")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 
 			String usuario = request.getParameter("usuario");
@@ -262,11 +264,11 @@ public class controller extends HttpServlet {
 
 		} else if (value.equals("finalizar")) {
 
-			BBDD BBDD = new BBDD();
+			
 			RequestDispatcher rd;
 
-			List<pelicula> pel = BBDD.devuelveFinalizar();
-			System.out.println(pel.toString());
+			List<String> pel = BBDD.devuelveFinalizar();
+			
 			request.setAttribute("men", pel);
 
 			rd = request.getRequestDispatcher("finalizar.jsp");
@@ -275,8 +277,15 @@ public class controller extends HttpServlet {
 			/*falta rellenar la lista para guardar los directores consultados.
 			 * modificacion realizada en el primer método de BBDD
 			 * 2 metodos implementados en BBDD
-			 * 
 			 */
+		}else if(value.equals("inicio")) {
+			
+			BBDD = new BBDD();
+			RequestDispatcher rd;
+			rd = request.getRequestDispatcher("index.jsp");
+
+			rd.forward(request, response);
+
 		}
 
 	}

@@ -14,6 +14,7 @@ ID: <input type="text" name="id"/></br></br>
 <p>----------------------------</p>
 Director: <input type="text" name="director"/></br></br>
 Titulo: <input type="text" name="titulo"/></br></br>
+Fecha: <input type="text" name="fecha"/> Formato DAY-MONTH-YEAR</br></br>
 
 <input type="submit" value="Modificar"/></br></br>
 <input name="action" value="modificarPelicula" style="visibility: hidden; display: none;">

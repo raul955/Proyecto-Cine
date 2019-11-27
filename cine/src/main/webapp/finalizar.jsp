@@ -10,12 +10,12 @@
 
 <table id="tabla">
 		<tr>		
-			<td style="height: 28px; width: 150px;">Director</td>
+			<td style="height: 28px; width: 150px;"><b>Directores consultados:</b></td>
 		<tr>	
 		<c:forEach items="${men}" var="info">
 			<tr>
 				
-				<td>${info.director }</td>
+				<td>${info}</td>
 				
 			</tr>
 		</c:forEach>
@@ -23,7 +23,11 @@
 	
 	</br></br>
 	<a href="consultaDir.jsp"><input type="button" value="Otra consulta"/></a></br></br>
-	<a href="index.jsp"><input type="button" value="Inicio"/></a>
+	<!-- <a href="index.jsp"><input type="button" value="Inicio"/></a> -->
+	<form method="POST" action="controller">
+		<input type="submit" value="Inicio"/></br></br>
+		<input name="action" value="inicio" style="visibility: hidden; display: none;">
+	</form>
 
 </body>
 </html>
