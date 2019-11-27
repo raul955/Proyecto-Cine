@@ -175,6 +175,7 @@ public class controller extends HttpServlet {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				rd = request.getRequestDispatcher("errorExistente.jsp");
+				rd.forward(request, response);
 				e.printStackTrace();
 			}
 
@@ -205,6 +206,7 @@ public class controller extends HttpServlet {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				rd = request.getRequestDispatcher("errorExistente.jsp");
+				rd.forward(request, response);
 				e.printStackTrace();
 			}
 		} else if (value.equals("borrarPelicula")) {
@@ -231,6 +233,7 @@ public class controller extends HttpServlet {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				rd = request.getRequestDispatcher("errorBorrado.jsp");
+				rd.forward(request, response);
 				e.printStackTrace();
 			}
 
@@ -259,6 +262,7 @@ public class controller extends HttpServlet {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				rd = request.getRequestDispatcher("errorBorrado.jsp");
+				rd.forward(request, response);
 				e.printStackTrace();
 			}
 
