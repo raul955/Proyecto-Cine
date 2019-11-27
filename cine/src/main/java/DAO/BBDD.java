@@ -21,7 +21,7 @@ public class BBDD {
 	ResultSet rs;
 	int result;
 	String forName = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@192.168.56.101:1521:xe";
+	String url = "jdbc:oracle:thin:@192.168.205.34:1521:xe";
 	String user = "cine";
 	String pass = "cine";
 	ArrayList<String> directorr = new ArrayList<String>();

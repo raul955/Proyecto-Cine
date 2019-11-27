@@ -7,7 +7,7 @@
 </head>
 <body>
 
-ERR0R PRIMARY KEY VIOLADA, ID YA EXISTENTE.
-<a href="nuevaPelicula.jsp"><input type="submit" value="Volver" /></a>
+404 NOT FOUND - LA PELÍCULA NO EXISTE.
+<a href="mantenimiento.jsp"><input type="submit" value="Volver" /></a>
 </body>
 </html>
