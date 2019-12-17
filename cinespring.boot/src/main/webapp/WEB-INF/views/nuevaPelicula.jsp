@@ -8,7 +8,7 @@
 <body>
 <h2>Nueva Película</h2>
 
-<form method="POST" action="controller">
+<form method="POST" action="nuevaPeliculaa">
 
 Director: <input type="text" name="director"/></br></br>
 Titulo: <input type="text" name="titulo"/></br></br>
@@ -21,6 +21,6 @@ ID: <input type="text" name="id"/></br></br>
 <p>${men }</p>
 
 
-<a href="mantenimiento.jsp"><input type="submit" value="Volver" /></a>
+<a href="/views/mantenimiento"><input type="submit" value="Volver" /></a></br></br>
 </body>
 </html>

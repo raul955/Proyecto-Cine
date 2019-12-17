@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2>Borrar Película</h2>
-<form method="POST" action="controller">
+<form method="POST" action="delete">
 
 ID: <input type="text" name="id"/></br></br>
 <p>----------------------------</p>
@@ -19,6 +19,6 @@ ID: <input type="text" name="id"/></br></br>
 <p>${men }</p>
 
 
-<a href="mantenimiento.jsp"><input type="submit" value="Volver" /></a>
+<a href="/views/mantenimiento"><input type="submit" value="Volver" /></a></br></br>
 </body>
 </html>

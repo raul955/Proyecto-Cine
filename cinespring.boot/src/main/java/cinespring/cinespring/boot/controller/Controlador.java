@@ -35,7 +35,10 @@ public class Controlador {
 	@Autowired
 	private usuarioRep ur;
 	
-	BBDD BBDD;
+	
+	pelicula p;
+	BBDD BBDD=  new BBDD();
+	
 	String pagina=null;
 
 	@RequestMapping(value="/newUser", method=RequestMethod.GET)
@@ -58,9 +61,39 @@ public class Controlador {
 		return "/login";
 	}
 	
+	@RequestMapping(value="/welcome", method=RequestMethod.GET)
+	public String welcome() {
+		return "/welcome";
+	}
+	
 	@RequestMapping(value="/informacion", method=RequestMethod.GET)
 	public String informacion() {
 		return "/informacion";
+	}
+	
+	@RequestMapping(value="/nuevaPelicula", method=RequestMethod.GET)
+	public String nuevaPelicula() {
+		return "/nuevaPelicula";
+	}
+	
+	@RequestMapping(value="/modificarPelicula", method=RequestMethod.GET)
+	public String modificarPelicula() {
+		return "/modificarPelicula";
+	}
+	
+	@RequestMapping(value="/borrarPelicula", method=RequestMethod.GET)
+	public String borrarPelicula() {
+		return "/borrarPelicula";
+	}
+	
+	@RequestMapping(value="/consult", method=RequestMethod.GET)
+	public String consult() {
+		return "/consultaDir";
+	}
+	
+	@RequestMapping(value="/mantenimiento", method=RequestMethod.GET)
+	public String mantenimiento() {
+		return "/mantenimiento";
 	}
 	
 	@RequestMapping(value="/consultaDir", method=RequestMethod.GET)
@@ -76,7 +109,6 @@ public class Controlador {
 	@RequestMapping(method=RequestMethod.POST, value="/login")
     public ModelAndView logearse(HttpServletRequest request) throws ServletException, IOException {
 
-    	BBDD =  new BBDD();
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
 
@@ -124,6 +156,167 @@ public class Controlador {
 		}
 		
 		return new ModelAndView("/mantenimiento");
+		
+    }
+	
+	@RequestMapping(method=RequestMethod.POST, value="/nuevaPeliculaa")
+    public ModelAndView nuevaPelicula(HttpServletRequest request) throws ServletException, IOException {
+
+		String director = request.getParameter("director");
+		String titulo = request.getParameter("titulo");
+		String fecha = request.getParameter("fecha");
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		try {
+
+			BBDD.insertarPelicula(director, titulo,fecha, id);
+
+			String mensaje = "Película insertada";
+
+			request.setAttribute("men", mensaje);
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ModelAndView("/errorExistente");
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return new ModelAndView("/errorExistente");
+		}
+		
+		return new ModelAndView("/nuevaPelicula");
+		
+    }
+	
+	@RequestMapping(method=RequestMethod.POST, value="/modify")
+    public ModelAndView modify(HttpServletRequest request) throws ServletException, IOException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		String director = request.getParameter("director");
+		String titulo = request.getParameter("titulo");
+		String fecha = request.getParameter("fecha");
+
+		try {
+
+			String mensaje = "Película modificada";
+
+			BBDD.modificarPelicula(id,director,titulo,fecha);
+
+			request.setAttribute("men", mensaje);
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ModelAndView("/errorExistente");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ModelAndView("/errorExistente");
+		}
+		
+		return new ModelAndView("/modificarPelicula");
+		
+    }
+	
+	@RequestMapping(method=RequestMethod.POST, value="/delete")
+    public ModelAndView delete(HttpServletRequest request) throws ServletException, IOException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		try {
+
+			String mensaje = "Película borrada";
+
+			BBDD.borrarPelicula(id);
+
+			request.setAttribute("men", mensaje);
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block			
+			e.printStackTrace();
+			return new ModelAndView("/errorBorrado");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ModelAndView("/errorBorrado");
+		}
+		
+		return new ModelAndView("/borrarPelicula");
+		
+    }
+	
+	@RequestMapping(method=RequestMethod.POST, value="/neww")
+    public ModelAndView neww(HttpServletRequest request) throws ServletException, IOException {
+
+		String usuario = request.getParameter("usuario");
+		String password = request.getParameter("password");
+
+		try {
+
+			String mensaje = "Usuario insertado";
+
+			BBDD.altaUsuario(usuario, password);
+
+			request.setAttribute("men", mensaje);
+
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ModelAndView("/errorExistente");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ModelAndView("/errorExistente");
+		}
+		
+		return new ModelAndView("/newUser");
+		
+    }
+	@RequestMapping(method=RequestMethod.POST, value="/consulta")
+	public ModelAndView consulta(HttpServletRequest request) throws ServletException, IOException, java.lang.NullPointerException, ClassNotFoundException, SQLException {
+
+		
+		String director = request.getParameter("director");
+
+		try {
+			List<pelicula> pel = BBDD.mostrarTablaPeliculas(director);
+			request.setAttribute("listaPel", pel);
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ModelAndView("/errorUsuario");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ModelAndView("/errorUsuario");
+			
+		} catch (java.lang.NullPointerException e) {
+			e.printStackTrace();
+			return new ModelAndView("/listapeliculas");
+		}
+		
+		return new ModelAndView("/listapeliculas");
+		
+    }
+	
+	@RequestMapping(method=RequestMethod.POST, value="/finalizar")
+	public ModelAndView finalizar(HttpServletRequest request) throws ServletException, IOException, java.lang.NullPointerException, ClassNotFoundException, SQLException {
+
+
+		List<String> pel = BBDD.devuelveFinalizar();
+		
+		request.setAttribute("men", pel);
+		
+		return new ModelAndView("/finalizar");
+		
+    }
+	
+	@RequestMapping(method=RequestMethod.POST, value="/fin")
+	public ModelAndView fin(HttpServletRequest request) throws ServletException, IOException, java.lang.NullPointerException, ClassNotFoundException, SQLException {
+
+		BBDD = new BBDD();
+		
+		return new ModelAndView("/index");
 		
     }
 	

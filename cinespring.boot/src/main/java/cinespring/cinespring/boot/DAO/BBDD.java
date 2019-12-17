@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -42,7 +43,7 @@ public class BBDD implements BBDDDAO{
 
 		st = con.createStatement();
 
-		rs = st.executeQuery("select * from cine where director like('" + director + "')");
+		rs = st.executeQuery("select * from cine where director like('"+director+"')");
 
 		while (rs.next()) {
 
@@ -50,7 +51,6 @@ public class BBDD implements BBDDDAO{
 			if (!directorr.contains(rs.getString("director"))) {
 				directorr.add(rs.getString("director"));
 			}
-
 		}
 
 		if (lista.isEmpty()) {
@@ -125,7 +125,7 @@ public class BBDD implements BBDDDAO{
 
 		st = con.createStatement();
 
-		rs = st.executeQuery(
+		st.executeUpdate(
 				"insert into cine(director,titulo,fecha,id)values('" + director + "','" + titulo + "','"+fecha+"','" + id + "')");
 
 	}
@@ -138,9 +138,9 @@ public class BBDD implements BBDDDAO{
 
 		st = con.createStatement();
 
-		rs = st.executeQuery("update cine set titulo = '" + titulo + "' where id=" + id);
-		rs = st.executeQuery("update cine set director = '" + director + "' where id=" + id);
-		rs = st.executeQuery("update cine set fecha = '" + fecha + "' where id=" + id);
+		st.executeUpdate("update cine set titulo = '" + titulo + "' where id=" + id);
+		st.executeUpdate("update cine set director = '" + director + "' where id=" + id);
+		st.executeUpdate("update cine set fecha = '" + fecha + "' where id=" + id);
 
 	}
 
@@ -152,7 +152,7 @@ public class BBDD implements BBDDDAO{
 
 		st = con.createStatement();
 
-		rs = st.executeQuery("delete from cine where id=" + id);
+		st.executeUpdate("delete from cine where id=" + id);
 
 	}
 
@@ -164,7 +164,7 @@ public class BBDD implements BBDDDAO{
 
 		st = con.createStatement();
 
-		rs = st.executeQuery("insert into usuarios(usuario,password)values('" + usuario + "','" + password + "')");
+		st.executeUpdate("insert into usuarios(usuario,password)values('" + usuario + "','" + password + "')");
 
 	}
 

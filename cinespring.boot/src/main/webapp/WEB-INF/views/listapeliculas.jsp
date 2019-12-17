@@ -25,9 +25,9 @@
 		</c:forEach>
 	</table>
 
-<a href="consultaDir.jsp"><input type="button" value="Otra consulta"/></a></br></br>
+<a href="/views/consultaDir"><input type="submit" value="Volver" /></a>
 
-<form method="POST" action="controller">
+<form method="POST" action="finalizar">
 <input type="submit" value="Finalizar"/></br></br>
 <input name="action" value="finalizar" style="visibility: hidden; display: none;">
 </form>

@@ -8,7 +8,7 @@
 <body>
 <h2>Alta Usuarios</h2>
 
-<form method="POST" action="controller">
+<form method="POST" action="neww">
 
 Usuario: <input type="text" name="usuario"/></br></br>
 Password: <input type="text" name="password"/></br></br>
@@ -21,7 +21,7 @@ Password: <input type="text" name="password"/></br></br>
 <p>${men }</p>
 
 
-<a href="welcome.jsp"><input type="submit" value="Volver" /></a>
+<a href="/views/welcome"><input type="submit" value="Volver" /></a></br></br>
 
 </body>
 </html>

@@ -8,6 +8,6 @@
 <body>
 
 404 NOT FOUND - LA PELÍCULA NO EXISTE.
-<a href="mantenimiento.jsp"><input type="submit" value="Volver" /></a>
+<a href="/views/mantenimiento"><input type="submit" value="Volver" /></a></br></br>
 </body>
 </html>

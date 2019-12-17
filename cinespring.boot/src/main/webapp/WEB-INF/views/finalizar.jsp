@@ -22,9 +22,9 @@
 	</table>
 	
 	</br></br>
-	<a href="consultaDir.jsp"><input type="button" value="Otra consulta"/></a></br></br>
+	<a href="consult"><input type="button" value="Otra consulta"/></a></br></br>
 	<!-- <a href="index.jsp"><input type="button" value="Inicio"/></a> -->
-	<form method="POST" action="controller">
+	<form method="POST" action="fin">
 		<input type="submit" value="Inicio"/></br></br>
 		<input name="action" value="inicio" style="visibility: hidden; display: none;">
 	</form>

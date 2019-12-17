@@ -25,10 +25,14 @@
 			</c:forEach>
 	</table>
 	</br>
-	<a href="nuevaPelicula.jsp"><input type="submit" value="Nueva Película" /></a></br></br>
-	<a href="modificarPelicula.jsp"><input type="submit" value="Modificar Pelicula" /></a></br></br>
-	<a href="borrarPelicula.jsp"><input type="submit" value="Borrar Película" /></a></br></br>
-	<a href="welcome.jsp"><input type="submit" value="Volver" /></a></br></br>
+	<a href="/views/nuevaPelicula"><input type="button" value="Nueva Pelicula" /></a></br></br>
+	
+	<a href="/views/modificarPelicula"><input type="button" value="Modificar Película" /></a></br></br>
+	
+	<a href="/views/borrarPelicula"><input type="button" value="Borrar Película" /></a></br></br>
+	
+	<a href="/views/welcome"><input type="submit" value="Volver" /></a></br></br>
+	
 
 </body>
 </html>

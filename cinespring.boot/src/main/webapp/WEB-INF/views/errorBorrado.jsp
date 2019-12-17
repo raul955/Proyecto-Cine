@@ -8,6 +8,6 @@
 <body>
 
 ERR0R PELICULA INEXISTENTE.
-<a href="borrarPelicula.jsp"><input type="submit" value="Volver" /></a>
+<a href="/views/mantenimiento"><input type="submit" value="Volver" /></a></br></br>
 </body>
 </html>

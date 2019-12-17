@@ -6,16 +6,16 @@
 	<h2>Consultar</h2>
 
 
-	<form method="POST" action="controller">
+	<form method="POST" action="consulta">
 		Director: <input type="text" name="director"> <input
-			type="submit" value="consultar"> <input name="action"
-			value="mostrarInformacion" style="visibility: hidden; display: none;">
+			type="submit" value="consultar">
 	</form>
 
-
+	
 	<div align="center">
-		<a href="/views/index"><input type="submit" value="Inicio" /></a>
+				<a href="/views/index"><input type="submit" value="Inicio" /></a>
 	</div>
 
-</body>
+
+		</body>
 </html>
