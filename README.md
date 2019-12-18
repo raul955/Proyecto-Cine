@@ -1,14 +1,17 @@
 Cine con servlets y jsp:
 Realizado con java 1.8
 Tomcat 8.5
+mySQL
 ------------------------
 Cine Spring Boot:
 java 11
 tomcat 8.5
+mySQL
 ------------------------
 Cine SpringMVC4
 java 11
 tomcat 8.5
+mySQL
 ------------------------
 
 SCRIPT BBDD: (También se encuentra en el directorio webapp del proyecto.)
