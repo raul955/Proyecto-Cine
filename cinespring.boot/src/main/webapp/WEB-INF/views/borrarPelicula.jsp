@@ -14,6 +14,7 @@
 <body>
 <div align="center">
 	<h2>Borrar Película</h2>
+	
 	<form method="POST" action="delete">
 
 		ID: <input type="text" name="id" /></br>

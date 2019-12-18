@@ -10,6 +10,10 @@
 <h2>Cine</h2>
 </br>
 
+<a href="/views/cardPeliculas">
+<input type="submit" value="Lista de Películas" class="btn btn-outline-primary" style="height: 45px; width: 500px;"></br></br>
+</a>
+
 <a href="/views/login">
 <input type="button" class="btn btn-outline-primary" align="right" value="Login Admin" style="height: 45px; width: 500px;"/></br></br>
 </a>

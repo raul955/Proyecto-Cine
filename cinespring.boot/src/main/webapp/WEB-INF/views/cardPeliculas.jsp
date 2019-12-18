@@ -1,44 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <head>
-<title>Directores Consultados</title>
+<meta charset="ISO-8859-1">
+<title>Películas</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 </head>
-
-</head>
 <body>
-	<div align="center" class="row justify-content-center">
-		<div class="col-auto">
-			<h2>Directores Consultados</h2>
+	<h2 align="center">Listado de películas</h2>
 
-			<table id="tabla" class="mt-5 table table-striped table-inverse table-responsive table-center table-bordered text-center">
-				<tr>
-					<td style="height: 28px; width: 150px;"><b>Directores
-							consultados:</b></td>
-				<tr>
-					<c:forEach items="${men}" var="info">
-						<tr>
 
-							<td>${info}</td>
+	<div class="row justify-content-md-center">
+		
+			<c:forEach items="${listaPel}" var="info">
+				<div class="card" style="width: 18rem; margin-right: 6px; margin-top: 6px;" class="col-6 col-md-4 col-lg-3">
+					<ul class="list-group list-group-flush">
+					<div class="card-header"><b>Titulo:</b> ${info.director}</div>
+						<li class="list-group-item"><b>Director:</b> ${info.nombre}</li>
+						<li class="list-group-item"><b>Fecha:</b> ${info.fecha}</li>
+					</ul>				
+				</div>
+				</br> </br>
+			</c:forEach>
+		
+	</div>
+	</br>
 
-						</tr>
-					</c:forEach>
-			</table>
 
-			</br> </br> <a href="consult"><input type="button" value="Otra consulta"
-				class="btn btn-outline-primary" /></a> </br> </br>
-			<!-- <a href="index.jsp"><input type="button" value="Inicio"/></a> -->
-			<form method="POST" action="fin">
-				<input type="submit" value="Inicio" class="btn btn-outline-danger" /></br>
-				</br> <input name="action" value="inicio"
-					style="visibility: hidden; display: none;">
-			</form>
-		</div>
+
+	<div align="center">
+		<a href="/views/index"><input type="submit" value="Inicio"
+			class="btn btn-outline-danger" /></a>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

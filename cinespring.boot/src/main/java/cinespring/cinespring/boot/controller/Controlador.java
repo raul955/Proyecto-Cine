@@ -155,7 +155,7 @@ public class Controlador {
 			e.printStackTrace();
 		}
 		
-		return new ModelAndView("/mantenimiento");
+		return new ModelAndView("mantenimiento");
 		
     }
 	
@@ -320,6 +320,15 @@ public class Controlador {
 		
     }
 	
+	@RequestMapping(method=RequestMethod.GET, value="/cardPeliculas")
+    public ModelAndView cardPeliculas(HttpServletRequest request) throws ServletException, IOException, ClassNotFoundException, SQLException {
+			
+			List<pelicula> pel = BBDD.mostrarPeliculas();
+			request.setAttribute("listaPel", pel);
+		
+		return new ModelAndView("/cardPeliculas");
+		
+    }
 	
 	
 }

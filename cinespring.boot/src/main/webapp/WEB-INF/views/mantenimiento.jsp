@@ -12,46 +12,38 @@
 </head>
 <body>
 
-<div align="center">
-	<h2>Mantenimiento</h2>
+	<div align="center" class="row justify-content-center">
+		<div class="col-auto">
+			<h2>Mantenimiento</h2>
 
-	<table id="tablaMantenimiento" border="1px">
-		<tr>
-			<td style="height: 28px; width: 150px;">Director</td>
-			<td style="height: 28px; width: 150px;">Titulo</td>
-			<td style="height: 28px; width: 150px;">Fecha</td>
-			<td style="height: 28px; width: 150px;">ID</td>
-		<tr>
-			<c:forEach items="${listaPel}" var="info">
+			<table id="tablaMantenimiento" border="1px" class="mt-5 table table-striped table-inverse table-responsive table-center table-bordered text-center">
 				<tr>
-					<td>${info.nombre }</td>
-					<td>${info.director }</td>
-					<td>${info.fecha }</td>
-					<td>${info.id }</td>
-				</tr>
-			</c:forEach>
-	</table>
-	</br>
-	<a href="/views/nuevaPelicula"><input type="button"
-		value="Nueva Pelicula" class="btn btn-outline-primary" /></a>
-	</br>
-	</br>
-
-	<a href="/views/modificarPelicula"><input type="button"
-		value="Modificar Película" class="btn btn-outline-primary" /></a>
-	</br>
-	</br>
-
-	<a href="/views/borrarPelicula"><input type="button"
-		value="Borrar Película" class="btn btn-outline-primary" /></a>
-	</br>
-	</br>
-
-	<a href="/views/welcome"><input type="submit" value="Volver"
-		class="btn btn-outline-danger" /></a>
-	</br>
-	</br>
-</div>
+					<td style="height: 28px; width: 150px;">Director</td>
+					<td style="height: 28px; width: 150px;">Titulo</td>
+					<td style="height: 28px; width: 150px;">Fecha</td>
+					<td style="height: 28px; width: 150px;">ID</td>
+				<tr>
+					<c:forEach items="${listaPel}" var="info">
+						<tr>
+							<td>${info.nombre }</td>
+							<td>${info.director }</td>
+							<td>${info.fecha }</td>
+							<td>${info.id }</td>
+						</tr>
+					</c:forEach>
+			</table>
+			</br> <a href="/views/nuevaPelicula"><input type="button"
+				value="Nueva Pelicula" class="btn btn-outline-primary" /></a> </br> </br> <a
+				href="/views/modificarPelicula"><input type="button"
+				value="Modificar Película" class="btn btn-outline-primary" /></a> </br> </br> 
+				<form method="POST" action="nuevo">
+				<a href="/views/borrarPelicula"><input type="button"
+				value="Borrar Película" class="btn btn-outline-primary" />
+				</form></a> </br> </br> <a
+				href="/views/welcome"><input type="submit" value="Volver"
+				class="btn btn-outline-danger" /></a> </br> </br>
+		</div>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>

@@ -44,6 +44,13 @@ public class pelicula {
 		this.director = director;
 	}
 
+	public pelicula(String nombre, String director, String fecha) {
+		super();
+		this.nombre = nombre;
+		this.director = director;
+		this.fecha = fecha;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

@@ -171,5 +171,32 @@ public class BBDD implements BBDDDAO{
 	public List<String> devuelveFinalizar() {
 		return directorr;
 	}
+	
+	public List<pelicula> mostrarPeliculas() throws ClassNotFoundException, SQLException {
+
+		ArrayList<pelicula> lista = new ArrayList<pelicula>();
+
+		Class.forName(forName);
+
+		con = DriverManager.getConnection(url, user, pass);
+
+		st = con.createStatement();
+
+		rs = st.executeQuery("select * from cine");
+
+		while (rs.next()) {
+
+			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha")));
+		}
+		
+
+		if (lista.isEmpty()) {
+			lista.add(new pelicula("", ""));
+			lista.add(new pelicula("Sin resultado,  realice una nueva búsqueda", ""));
+		}
+
+		return lista;
+
+	}
 
 }
