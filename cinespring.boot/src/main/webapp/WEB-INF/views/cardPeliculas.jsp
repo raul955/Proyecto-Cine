@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Películas</title>
+<title><p>Películas</p></title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -19,6 +19,7 @@
 		
 			<c:forEach items="${listaPel}" var="info">
 				<div class="card" style="width: 18rem; margin-right: 6px; margin-top: 6px;" class="col-6 col-md-4 col-lg-3">
+				<img class="card-img-top" src="${info.imagen}" alt="Card image cap" width="120px" height="180px">
 					<ul class="list-group list-group-flush">
 					<div class="card-header"><b>Titulo:</b> ${info.director}</div>
 						<li class="list-group-item"><b>Director:</b> ${info.nombre}</li>

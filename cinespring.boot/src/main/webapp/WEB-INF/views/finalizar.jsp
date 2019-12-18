@@ -16,7 +16,7 @@
 		<div class="col-auto">
 			<h2>Directores Consultados</h2>
 
-			<table id="tabla" class="mt-5 table table-striped table-inverse table-responsive table-center table-bordered text-center">
+			<table id="tabla" class="mt-5 table table-striped table-inverse table-responsive table-center text-center">
 				<tr>
 					<td style="height: 28px; width: 150px;"><b>Directores
 							consultados:</b></td>

@@ -166,10 +166,13 @@ public class Controlador {
 		String titulo = request.getParameter("titulo");
 		String fecha = request.getParameter("fecha");
 		int id = Integer.parseInt(request.getParameter("id"));
+		String descripcion = request.getParameter("descripcion");
+		String imagen = request.getParameter("imagen");
+		
 
 		try {
 
-			BBDD.insertarPelicula(director, titulo,fecha, id);
+			BBDD.insertarPelicula(director, titulo,fecha, id, descripcion, imagen);
 
 			String mensaje = "Película insertada";
 
@@ -196,12 +199,14 @@ public class Controlador {
 		String director = request.getParameter("director");
 		String titulo = request.getParameter("titulo");
 		String fecha = request.getParameter("fecha");
+		String descripcion = request.getParameter("descripcion");
+		String imagen = request.getParameter("imagen");
 
 		try {
 
 			String mensaje = "Película modificada";
 
-			BBDD.modificarPelicula(id,director,titulo,fecha);
+			BBDD.modificarPelicula(id,director,titulo,fecha,descripcion, imagen);
 
 			request.setAttribute("men", mensaje);
 

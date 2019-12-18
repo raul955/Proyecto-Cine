@@ -22,8 +22,9 @@
 		<p>----------------------------</p>
 		Director: <input type="text" name="director" required /></br>
 		</br> Titulo: <input type="text" name="titulo" required /></br>
-		</br> Fecha: <input type="text" name="fecha" required /> </br>
-		<p>Formato DAY-MONTH-YEAR</p></br>
+		</br> Fecha: <input type="text" name="fecha" required placeholder="AAAA-MM-DD"/> </br>
+		Descripcion: <input type="text" name="descripcion" required /></br>
+		</br> Imagen: <input type="text" name="imagen" required /></br>
 		</br> <input type="submit" value="Modificar" class="btn btn-outline-success"/></br>
 		</br> <input name="action" value="modificarPelicula"
 			style="visibility: hidden; display: none;">

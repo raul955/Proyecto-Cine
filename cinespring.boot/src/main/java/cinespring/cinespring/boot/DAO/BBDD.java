@@ -117,7 +117,7 @@ public class BBDD implements BBDDDAO{
 
 	}
 
-	public void insertarPelicula(String director, String titulo,String fecha, int id) throws ClassNotFoundException, SQLException {
+	public void insertarPelicula(String director, String titulo,String fecha, int id, String descripcion, String imagen) throws ClassNotFoundException, SQLException {
 
 		Class.forName(forName);
 
@@ -126,11 +126,11 @@ public class BBDD implements BBDDDAO{
 		st = con.createStatement();
 
 		st.executeUpdate(
-				"insert into cine(director,titulo,fecha,id)values('" + director + "','" + titulo + "','"+fecha+"','" + id + "')");
+				"insert into cine(director,titulo,fecha,id,descripcion,imagen)values('" + director + "','" + titulo + "','"+fecha+"','" + id + "','"+ descripcion +"','"+ imagen +"')");
 
 	}
 
-	public void modificarPelicula(int id, String director,String titulo, String fecha) throws ClassNotFoundException, SQLException {
+	public void modificarPelicula(int id, String director,String titulo, String fecha,String descripcion, String imagen) throws ClassNotFoundException, SQLException {
 
 		Class.forName(forName);
 
@@ -141,6 +141,8 @@ public class BBDD implements BBDDDAO{
 		st.executeUpdate("update cine set titulo = '" + titulo + "' where id=" + id);
 		st.executeUpdate("update cine set director = '" + director + "' where id=" + id);
 		st.executeUpdate("update cine set fecha = '" + fecha + "' where id=" + id);
+		st.executeUpdate("update cine set descripcion = '" + descripcion + "' where id=" + id);
+		st.executeUpdate("update cine set imagen = '" + imagen + "' where id=" + id);
 
 	}
 
@@ -186,7 +188,7 @@ public class BBDD implements BBDDDAO{
 
 		while (rs.next()) {
 
-			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha")));
+			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"),rs.getString("imagen")));
 		}
 		
 
