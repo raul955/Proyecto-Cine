@@ -43,6 +43,7 @@ password varchar(20)
 );
 
 insert into usuarios(usuario, password)values('root','root');
+insert into usuarios(usuario, password)values('user','user');
 insert into usuarios(usuario, password)values('raul','raul');
 
 
