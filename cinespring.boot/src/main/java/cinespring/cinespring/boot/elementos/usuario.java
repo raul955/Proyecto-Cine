@@ -2,8 +2,10 @@ package cinespring.cinespring.boot.elementos;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class usuario {
 
 	@Id
@@ -12,6 +14,10 @@ public class usuario {
 	@Column
 	private String password;
 	
+	public usuario() {
+		super();
+	}
+
 	public usuario(String usuario, String password) {
 		super();
 		this.usuario = usuario;

@@ -2,8 +2,10 @@ package cinespring.cinespring.boot.elementos;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class pelicula {
 
 	@Column
@@ -30,6 +32,10 @@ public class pelicula {
 		this.director = director;
 		this.fecha = fecha;
 		this.id = id;
+	}
+	
+	public pelicula() {
+		super();
 	}
 	
 	public pelicula(String nombre, String director, String fecha, String imagen) {

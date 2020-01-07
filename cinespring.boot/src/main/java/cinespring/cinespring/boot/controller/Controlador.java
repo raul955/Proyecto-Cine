@@ -2,19 +2,15 @@ package cinespring.cinespring.boot.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cinespring.cinespring.boot.elementos.pelicula;
@@ -250,7 +246,7 @@ public class Controlador {
     }
 	
 	@RequestMapping(method=RequestMethod.POST, value="/neww")
-    public ModelAndView neww(HttpServletRequest request) throws ServletException, IOException {
+    public ModelAndView neww(HttpServletRequest request) throws ServletException, SQLIntegrityConstraintViolationException {
 
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
@@ -262,15 +258,18 @@ public class Controlador {
 			BBDD.altaUsuario(usuario, password);
 
 			request.setAttribute("men", mensaje);
-
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
+//		} catch (SQLIntegrityConstraintViolationException e) {			
+//			return new ModelAndView("/errorExistente");
+//		} catch (ClassNotFoundException e) {
+//			return new ModelAndView("/errorExistente");
+//		} catch (SQLException e) {
+//			return new ModelAndView("/errorExistente");
+		} catch (Exception e) {
 			e.printStackTrace();
-			return new ModelAndView("/errorExistente");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return new ModelAndView("/errorExistente");
+			if(e.getCause().getCause().getCause().getClass().equals(SQLIntegrityConstraintViolationException.class)) {
+				return new ModelAndView("/errorExistente");
+			}
 		}
 		
 		return new ModelAndView("/newUser");

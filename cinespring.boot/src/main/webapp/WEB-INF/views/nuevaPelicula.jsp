@@ -22,7 +22,7 @@
 		</br> Titulo: <input type="text" name="titulo" required/></br>
 		</br> Fecha: <input type="text" name="fecha" required placeholder="AAAA-MM-DD"/></br>
 		</br> ID: <input type="text" name="id" required/></br>
-		</br> descripción: <input type="text" name="descripción"/></br>
+		</br> descripción: <input type="text" name="descripcion" required/></br>
 		</br> Imagen: <input type="text" name="imagen" required/></br>
 		</br> <input type="submit" value="Crear" class="btn btn-outline-success"/></br>
 		</br> <input name="action" value="crearPelicula"

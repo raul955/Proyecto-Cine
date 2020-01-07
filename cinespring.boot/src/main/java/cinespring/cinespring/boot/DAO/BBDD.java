@@ -5,53 +5,54 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import cinespring.cinespring.boot.elementos.pelicula;
 import cinespring.cinespring.boot.elementos.usuario;
 
-public class BBDD implements BBDDDAO{
+public class BBDD implements BBDDDAO {
 
 	pelicula pel;
-	Connection con;
-	PreparedStatement pst;
-	Statement st;
-	ResultSet rs;
 	int result;
-	String forName = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/cine";
-	String user = "root";
-	String pass = "";
 	
-	//EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("BD_JPA");
-	
+	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("conexion");
+
 	ArrayList<String> directorr = new ArrayList<String>();
 
 	public List<pelicula> mostrarTablaPeliculas(String director) throws ClassNotFoundException, SQLException {
 
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		Query query = entitymanager.createQuery("SELECT p FROM pelicula p WHERE p.director = :director");
+		query.setParameter("director", director);
+
 		ArrayList<pelicula> lista = new ArrayList<pelicula>();
 
-		Class.forName(forName);
+		lista = (ArrayList<pelicula>) query.getResultList();
 
-		con = DriverManager.getConnection(url, user, pass);
-
-		st = con.createStatement();
-
-		rs = st.executeQuery("select * from cine where director like('"+director+"')");
-
-		while (rs.next()) {
-
-			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"), rs.getInt("id")));
-			if (!directorr.contains(rs.getString("director"))) {
-				directorr.add(rs.getString("director"));
-			}
+		if (!directorr.contains(director)) {
+			directorr.add(director);
 		}
+		
+//		Class.forName(forName);
+//		con = DriverManager.getConnection(url, user, pass);
+//		st = con.createStatement();
+//		rs = st.executeQuery("select * from cine where director like('"+director+"')");
+//		while (rs.next()) {
+//			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"), rs.getInt("id")));
+//			if (!directorr.contains(rs.getString("director"))) {
+//				directorr.add(rs.getString("director"));
+//			}
+//		}
 
 		if (lista.isEmpty()) {
 			lista.add(new pelicula("", ""));
@@ -67,20 +68,25 @@ public class BBDD implements BBDDDAO{
 
 		ArrayList<usuario> array = new ArrayList<>();
 
-		Class.forName(forName);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 
-		con = DriverManager.getConnection(url, user, pass);
+		Query query = entitymanager
+				.createQuery("SELECT u FROM usuario u WHERE u.usuario = :usuario AND u.password = :password");
 
-		st = con.createStatement();
+		query.setParameter("usuario", usuario);
+		query.setParameter("password", password);
 
-		rs = st.executeQuery(
-				"select * from usuarios where usuario like('" + usuario + "') and password like('" + password + "')");
-
-		while (rs.next()) {
-
-			array.add(new usuario(rs.getString("usuario"), rs.getString("password")));
-
-		}
+		array = (ArrayList<usuario>) query.getResultList();
+//		Class.forName(forName);
+//		con = DriverManager.getConnection(url, user, pass);
+//		st = con.createStatement();
+//		rs = st.executeQuery(
+//				"select * from usuarios where usuario like('" + usuario + "') and password like('" + password + "')");
+//		while (rs.next()) {
+//			array.add(new usuario(rs.getString("usuario"), rs.getString("password")));
+//
+//		}
 
 		if (array.isEmpty()) {
 			array.add(new usuario("Error, vuelva a intentarlo", ""));
@@ -95,19 +101,20 @@ public class BBDD implements BBDDDAO{
 
 		ArrayList<pelicula> lista = new ArrayList<pelicula>();
 
-		Class.forName(forName);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 
-		con = DriverManager.getConnection(url, user, pass);
+		Query query = entitymanager.createQuery("SELECT p FROM pelicula p");
 
-		st = con.createStatement();
+		lista = (ArrayList<pelicula>) query.getResultList();
 
-		rs = st.executeQuery("select * from cine");
-
-		while (rs.next()) {
-
-			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"), rs.getInt("id")));
-
-		}
+//		Class.forName(forName);
+//		con = DriverManager.getConnection(url, user, pass);
+//		st = con.createStatement();
+//		rs = st.executeQuery("select * from cine");
+//		while (rs.next()) {
+//			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"), rs.getInt("id")));
+//		}
 
 		if (lista.isEmpty()) {
 			lista.add(new pelicula("Error", ""));
@@ -117,80 +124,126 @@ public class BBDD implements BBDDDAO{
 
 	}
 
-	public void insertarPelicula(String director, String titulo,String fecha, int id, String descripcion, String imagen) throws ClassNotFoundException, SQLException {
+	public void insertarPelicula(String director, String nombre, String fecha, int id, String descripcion,
+			String imagen) throws ClassNotFoundException, SQLException {
 
-		Class.forName(forName);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 
-		con = DriverManager.getConnection(url, user, pass);
+		pelicula pel = new pelicula();
+		pel.setId(id);
+		pel.setDirector(director);
+		pel.setNombre(nombre);
+		pel.setFecha(fecha);
+		pel.setImagen(imagen);
 
-		st = con.createStatement();
+		entitymanager.persist(pel);
+		entitymanager.getTransaction().commit();
 
-		st.executeUpdate(
-				"insert into cine(director,titulo,fecha,id,descripcion,imagen)values('" + director + "','" + titulo + "','"+fecha+"','" + id + "','"+ descripcion +"','"+ imagen +"')");
+//		Class.forName(forName);
+//		con = DriverManager.getConnection(url, user, pass);
+//		st = con.createStatement();
+//		st.executeUpdate(
+//				"insert into cine(director,titulo,fecha,id,descripcion,imagen)values('" + director + "','" + titulo + "','"+fecha+"','" + id + "','"+ descripcion +"','"+ imagen +"')");
 
 	}
 
-	public void modificarPelicula(int id, String director,String titulo, String fecha,String descripcion, String imagen) throws ClassNotFoundException, SQLException {
+	public void modificarPelicula(int id, String director, String nombre, String fecha, String descripcion,
+			String imagen) throws ClassNotFoundException, SQLException {
 
-		Class.forName(forName);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 
-		con = DriverManager.getConnection(url, user, pass);
+		Query query = entitymanager.createQuery(
+				"UPDATE pelicula p SET p.nombre = :nombre, p.director = :director, p.fecha = :fecha, p.imagen = :imagen WHERE p.id = :id ");
+		query.setParameter("id", id);
+		query.setParameter("director", director);
+		query.setParameter("nombre", nombre);
+		query.setParameter("fecha", fecha);
+		query.setParameter("imagen", imagen);
 
-		st = con.createStatement();
+		query.executeUpdate();
 
-		st.executeUpdate("update cine set titulo = '" + titulo + "' where id=" + id);
-		st.executeUpdate("update cine set director = '" + director + "' where id=" + id);
-		st.executeUpdate("update cine set fecha = '" + fecha + "' where id=" + id);
-		st.executeUpdate("update cine set descripcion = '" + descripcion + "' where id=" + id);
-		st.executeUpdate("update cine set imagen = '" + imagen + "' where id=" + id);
+		entitymanager.getTransaction().commit();
+
+//		Class.forName(forName);
+//
+//		con = DriverManager.getConnection(url, user, pass);
+//
+//		st = con.createStatement();
+//
+//		st.executeUpdate("update cine set titulo = '" + titulo + "' where id=" + id);
+//		st.executeUpdate("update cine set director = '" + director + "' where id=" + id);
+//		st.executeUpdate("update cine set fecha = '" + fecha + "' where id=" + id);
+//		st.executeUpdate("update cine set descripcion = '" + descripcion + "' where id=" + id);
+//		st.executeUpdate("update cine set imagen = '" + imagen + "' where id=" + id);
 
 	}
 
 	public void borrarPelicula(int id) throws ClassNotFoundException, SQLException {
 
-		Class.forName(forName);
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 
-		con = DriverManager.getConnection(url, user, pass);
+		Query query = entitymanager.createQuery("DELETE FROM pelicula p WHERE p.id = :id ");
+		query.setParameter("id", id);
 
-		st = con.createStatement();
+		query.executeUpdate();
 
-		st.executeUpdate("delete from cine where id=" + id);
+		entitymanager.getTransaction().commit();
+
+//		Class.forName(forName);
+//		con = DriverManager.getConnection(url, user, pass);
+//		st = con.createStatement();
+//		st.executeUpdate("delete from cine where id=" + id);
 
 	}
 
-	public void altaUsuario(String usuario, String password) throws ClassNotFoundException, SQLException {
+	public void altaUsuario(String usuario, String password) throws Exception {
 
-		Class.forName(forName);
+		
+			EntityManager entitymanager = emfactory.createEntityManager();
+			entitymanager.getTransaction().begin();
 
-		con = DriverManager.getConnection(url, user, pass);
+			usuario u = new usuario();
+			u.setUsuario(usuario);
+			u.setPassword(password);
 
-		st = con.createStatement();
+			entitymanager.persist(u);
+			entitymanager.getTransaction().commit();
+			
+		
 
-		st.executeUpdate("insert into usuarios(usuario,password)values('" + usuario + "','" + password + "')");
+//		Class.forName(forName);
+//		con = DriverManager.getConnection(url, user, pass);
+//		st = con.createStatement();
+//		st.executeUpdate("insert into usuarios(usuario,password)values('" + usuario + "','" + password + "')");
 
 	}
 
 	public List<String> devuelveFinalizar() {
 		return directorr;
 	}
-	
+
 	public List<pelicula> mostrarPeliculas() throws ClassNotFoundException, SQLException {
 
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
 		ArrayList<pelicula> lista = new ArrayList<pelicula>();
 
-		Class.forName(forName);
-
-		con = DriverManager.getConnection(url, user, pass);
-
-		st = con.createStatement();
-
-		rs = st.executeQuery("select * from cine");
-
-		while (rs.next()) {
-
-			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"),rs.getString("fecha"),rs.getString("imagen")));
-		}
+		Query query = entitymanager.createQuery("select p FROM pelicula p");
 		
+		lista = (ArrayList<pelicula>) query.getResultList();
+		
+//		Class.forName(forName);
+//		con = DriverManager.getConnection(url, user, pass);
+//		st = con.createStatement();
+//		rs = st.executeQuery("select * from cine");
+//		while (rs.next()) {
+//			lista.add(new pelicula(rs.getString("director"), rs.getString("titulo"), rs.getString("fecha"),
+//					rs.getString("imagen")));
+//		}
 
 		if (lista.isEmpty()) {
 			lista.add(new pelicula("", ""));

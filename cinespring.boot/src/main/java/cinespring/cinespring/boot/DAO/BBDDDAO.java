@@ -2,6 +2,7 @@ package cinespring.cinespring.boot.DAO;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,7 @@ public interface BBDDDAO {
 
 	public void borrarPelicula(int id) throws ClassNotFoundException, SQLException;
 
-	public void altaUsuario(String usuario, String password) throws ClassNotFoundException, SQLException;
-
+	public void altaUsuario(String usuario, String password) throws Exception;
 	public List<String> devuelveFinalizar();
 	
 }

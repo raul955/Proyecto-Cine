@@ -36,10 +36,10 @@
 				value="Nueva Pelicula" class="btn btn-outline-primary" /></a> </br> </br> <a
 				href="/views/modificarPelicula"><input type="button"
 				value="Modificar Película" class="btn btn-outline-primary" /></a> </br> </br> 
-				<form method="POST" action="nuevo">
+				
 				<a href="/views/borrarPelicula"><input type="button"
 				value="Borrar Película" class="btn btn-outline-primary" />
-				</form></a> </br> </br> <a
+				</a> </br> </br> <a
 				href="/views/welcome"><input type="submit" value="Volver"
 				class="btn btn-outline-danger" /></a> </br> </br>
 		</div>
