@@ -13,6 +13,11 @@
 </head>
 <body>
 	<h2 align="center">Listado de películas</h2>
+	
+	<form method="POST" action="filtrado">
+	<input class="form-control" type="text" aria-label="Search" placeholder="Buscar..." name="nombre"/>
+	<input type="submit" value="Buscar" class="btn btn-outline-success">
+	</form>
 
 
 	<div class="row justify-content-md-center">
@@ -21,8 +26,8 @@
 				<div class="card" style="width: 18rem; margin-right: 6px; margin-top: 6px;" class="col-6 col-md-4 col-lg-3">
 				<img class="card-img-top" src="${info.imagen}" alt="Card image cap" width="120px" height="180px">
 					<ul class="list-group list-group-flush">
-					<div class="card-header"><b>Titulo:</b> ${info.director}</div>
-						<li class="list-group-item"><b>Director:</b> ${info.nombre}</li>
+					<div class="card-header"><b>Director:</b> ${info.director}</div>
+						<li class="list-group-item"><b>Titulo:</b> ${info.nombre}</li>
 						<li class="list-group-item"><b>Fecha:</b> ${info.fecha}</li>
 					</ul>				
 				</div>

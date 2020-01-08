@@ -26,4 +26,6 @@ public interface BBDDDAO {
 	public void altaUsuario(String usuario, String password) throws Exception;
 	public List<String> devuelveFinalizar();
 	
+	public List<pelicula> filtrado(String titulo)throws ClassNotFoundException, SQLException;
+	
 }

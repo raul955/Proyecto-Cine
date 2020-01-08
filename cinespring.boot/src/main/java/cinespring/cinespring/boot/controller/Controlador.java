@@ -20,7 +20,6 @@ import cinespring.cinespring.boot.elementos.usuarioRep;
 import cinespring.cinespring.boot.DAO.BBDD;
 
 
-
 @Controller
 @RequestMapping("/views")
 public class Controlador {
@@ -324,7 +323,19 @@ public class Controlador {
 		
     }
 	
-	@RequestMapping(method=RequestMethod.GET, value="/cardPeliculas")
+	@RequestMapping(method= { RequestMethod.POST, RequestMethod.GET } ,  value="/filtrado")
+    public ModelAndView filtrado(HttpServletRequest request) throws ServletException, SQLIntegrityConstraintViolationException {
+
+		String nombre = request.getParameter("nombre");
+		List<pelicula> pel = BBDD.filtrado(nombre);
+
+		request.setAttribute("listaPel", pel);
+				System.out.println(pel.toString());
+		return new ModelAndView("/cardPeliculas");
+		
+    }
+	
+	@RequestMapping(method= { RequestMethod.POST, RequestMethod.GET } , value="/cardPeliculas")
     public ModelAndView cardPeliculas(HttpServletRequest request) throws ServletException, IOException, ClassNotFoundException, SQLException {
 			
 			List<pelicula> pel = BBDD.mostrarPeliculas();
@@ -333,6 +344,8 @@ public class Controlador {
 		return new ModelAndView("/cardPeliculas");
 		
     }
+	
+	
 	
 	
 }

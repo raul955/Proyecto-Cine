@@ -253,5 +253,20 @@ public class BBDD implements BBDDDAO {
 		return lista;
 
 	}
+	
+	public List<pelicula> filtrado(String nombre){
+		
+		ArrayList<pelicula> lista = new ArrayList<>();
+		
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		Query query = entitymanager.createQuery("SELECT p FROM pelicula p where p.nombre = :nombre");
+		query.setParameter("nombre", nombre);
+
+		lista = (ArrayList<pelicula>) query.getResultList();
+				
+		return lista;
+	}
 
 }
