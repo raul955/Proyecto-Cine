@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cinespring.cinespring.boot.elementos.pelicula;
 import cinespring.cinespring.boot.elementos.usuario;
+import cinespring.cinespring.boot.elementos.calificacion;
 import cinespring.cinespring.boot.elementos.peliculaRep;
 import cinespring.cinespring.boot.elementos.usuarioRep;
 import cinespring.cinespring.boot.DAO.BBDD;
@@ -330,7 +331,7 @@ public class Controlador {
 		List<pelicula> pel = BBDD.filtrado(nombre);
 
 		request.setAttribute("listaPel", pel);
-				System.out.println(pel.toString());
+				
 		return new ModelAndView("/cardPeliculas");
 		
     }
@@ -344,6 +345,31 @@ public class Controlador {
 		return new ModelAndView("/cardPeliculas");
 		
     }
+	
+	@RequestMapping(method= { RequestMethod.POST, RequestMethod.GET } , value="/descrip")
+    public ModelAndView informacionPel(HttpServletRequest request) throws ServletException, IOException, ClassNotFoundException, SQLException {
+	
+		String nombre = request.getParameter("name");
+		List<pelicula> pel = BBDD.informacionPel(nombre);
+		
+		request.setAttribute("listaPel", pel);
+		
+		return new ModelAndView("/informacionPel");
+	}
+	
+	@RequestMapping(method= { RequestMethod.POST, RequestMethod.GET } , value="/addCal")
+    public ModelAndView addCalificaciones(HttpServletRequest request) throws ServletException, IOException, ClassNotFoundException, SQLException {
+	
+		int calificacion = Integer.parseInt(request.getParameter("calificacion"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		
+		BBDD.addCalificacion(calificacion, id);
+		BBDD.actualizarCalificacion(id);
+		
+		return new ModelAndView("/calificacionEnviada");
+	}
+	
+	
 	
 	
 	

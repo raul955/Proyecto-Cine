@@ -26,6 +26,23 @@ public class pelicula {
 	@Column
 	private String imagen;
 	
+	@Column
+	private double calificacion;
+	
+	
+	
+	public pelicula(String nombre, String director, String fecha, int id, String descripcion, String imagen,
+			double calificacion) {
+		super();
+		this.nombre = nombre;
+		this.director = director;
+		this.fecha = fecha;
+		this.id = id;
+		this.descripcion = descripcion;
+		this.imagen = imagen;
+		this.calificacion = calificacion;
+	}
+
 	public pelicula(String nombre, String director, String fecha, int id) {
 		super();
 		this.nombre = nombre;
@@ -75,6 +92,14 @@ public class pelicula {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public double getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(double calificacion) {
+		this.calificacion = calificacion;
 	}
 
 	public String getImagen() {

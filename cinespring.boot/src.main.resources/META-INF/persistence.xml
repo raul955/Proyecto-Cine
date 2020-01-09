@@ -11,6 +11,7 @@
 
 		<class>cinespring.cinespring.boot.elementos.pelicula</class>
 		<class>cinespring.cinespring.boot.elementos.usuario</class>
+		<class>cinespring.cinespring.boot.elementos.calificacion</class>
 
 		<properties>
 

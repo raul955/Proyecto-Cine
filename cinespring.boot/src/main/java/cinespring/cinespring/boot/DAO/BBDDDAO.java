@@ -28,4 +28,7 @@ public interface BBDDDAO {
 	
 	public List<pelicula> filtrado(String titulo)throws ClassNotFoundException, SQLException;
 	
+	public List<pelicula> informacionPel(String nombre) throws ClassNotFoundException, SQLException;
+	
+	public void actualizarCalificacion(int id);
 }

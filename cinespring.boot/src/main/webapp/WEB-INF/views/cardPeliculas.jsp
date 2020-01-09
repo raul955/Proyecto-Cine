@@ -27,9 +27,15 @@
 				<img class="card-img-top" src="${info.imagen}" alt="Card image cap" width="120px" height="180px">
 					<ul class="list-group list-group-flush">
 					<div class="card-header"><b>Director:</b> ${info.director}</div>
-						<li class="list-group-item"><b>Titulo:</b> ${info.nombre}</li>
-						<li class="list-group-item"><b>Fecha:</b> ${info.fecha}</li>
-					</ul>				
+						<li class="list-group-item" ><b>Titulo:</b> ${info.nombre}</li>
+						<li class="list-group-item"><b>Calificacion:</b> ${info.calificacion}</li>					
+					</ul>
+					<div align="center">
+						<form method="POST" action="descrip">
+							<input type="hidden" name="name" value="${info.nombre}"/>
+							<input type="submit" value="Información" class="btn btn-outline-info" name="descrip"/>
+						</form>
+					</div>				
 				</div>
 				</br> </br>
 			</c:forEach>

@@ -16,13 +16,14 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import cinespring.cinespring.boot.elementos.pelicula;
+import cinespring.cinespring.boot.elementos.calificacion;
 import cinespring.cinespring.boot.elementos.usuario;
 
 public class BBDD implements BBDDDAO {
 
 	pelicula pel;
 	int result;
-	
+
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("conexion");
 
 	ArrayList<String> directorr = new ArrayList<String>();
@@ -42,7 +43,7 @@ public class BBDD implements BBDDDAO {
 		if (!directorr.contains(director)) {
 			directorr.add(director);
 		}
-		
+
 //		Class.forName(forName);
 //		con = DriverManager.getConnection(url, user, pass);
 //		st = con.createStatement();
@@ -135,6 +136,7 @@ public class BBDD implements BBDDDAO {
 		pel.setDirector(director);
 		pel.setNombre(nombre);
 		pel.setFecha(fecha);
+		pel.setDescripcion(descripcion);
 		pel.setImagen(imagen);
 
 		entitymanager.persist(pel);
@@ -201,18 +203,15 @@ public class BBDD implements BBDDDAO {
 
 	public void altaUsuario(String usuario, String password) throws Exception {
 
-		
-			EntityManager entitymanager = emfactory.createEntityManager();
-			entitymanager.getTransaction().begin();
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
 
-			usuario u = new usuario();
-			u.setUsuario(usuario);
-			u.setPassword(password);
+		usuario u = new usuario();
+		u.setUsuario(usuario);
+		u.setPassword(password);
 
-			entitymanager.persist(u);
-			entitymanager.getTransaction().commit();
-			
-		
+		entitymanager.persist(u);
+		entitymanager.getTransaction().commit();
 
 //		Class.forName(forName);
 //		con = DriverManager.getConnection(url, user, pass);
@@ -229,13 +228,13 @@ public class BBDD implements BBDDDAO {
 
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		
+
 		ArrayList<pelicula> lista = new ArrayList<pelicula>();
 
 		Query query = entitymanager.createQuery("select p FROM pelicula p");
-		
+
 		lista = (ArrayList<pelicula>) query.getResultList();
-		
+
 //		Class.forName(forName);
 //		con = DriverManager.getConnection(url, user, pass);
 //		st = con.createStatement();
@@ -253,20 +252,81 @@ public class BBDD implements BBDDDAO {
 		return lista;
 
 	}
-	
-	public List<pelicula> filtrado(String nombre){
-		
+
+	public List<pelicula> filtrado(String nombre) {
+
 		ArrayList<pelicula> lista = new ArrayList<>();
-		
+
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
-		
+
 		Query query = entitymanager.createQuery("SELECT p FROM pelicula p where p.nombre = :nombre");
 		query.setParameter("nombre", nombre);
 
 		lista = (ArrayList<pelicula>) query.getResultList();
-				
+
+		if (lista.isEmpty()) {
+			lista.add(new pelicula("", ""));
+			lista.add(new pelicula("Sin resultado,  realice una nueva búsqueda", ""));
+		}
+
 		return lista;
+	}
+
+	public List<pelicula> informacionPel(String nombre) throws ClassNotFoundException, SQLException {
+
+		ArrayList<pelicula> lista = new ArrayList<pelicula>();
+
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+
+		Query query = entitymanager.createQuery("select p FROM pelicula p where p.nombre = :nombre");
+		query.setParameter("nombre", nombre);
+
+		lista = (ArrayList<pelicula>) query.getResultList();
+
+		if (lista.isEmpty()) {
+			lista.add(new pelicula("", ""));
+			lista.add(new pelicula("Sin resultado,  realice una nueva búsqueda", ""));
+		}
+
+		return lista;
+
+	}
+	
+	public void addCalificacion (int calificacion, int id) {
+		
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+		
+		calificacion cal = new calificacion();
+		cal.setCalificacion(calificacion);
+		cal.setId(id);
+
+		entitymanager.persist(cal);
+		
+		
+		entitymanager.getTransaction().commit();
+		
+	}
+	
+	public void actualizarCalificacion(int id) {
+		
+		EntityManager entitymanager = emfactory.createEntityManager();
+		entitymanager.getTransaction().begin();
+				
+		Query query = entitymanager.createQuery("select avg(c.calificacion) FROM calificacion c where c.id = :id");
+		query.setParameter("id", id);
+		double newcal = (double) query.getSingleResult();
+		
+		Query query2 = entitymanager.createQuery("update pelicula p set p.calificacion=:newcal where p.id = :id");		
+		query2.setParameter("newcal", newcal);
+		query2.setParameter("id", id);
+		
+		query2.executeUpdate();
+		
+		entitymanager.getTransaction().commit();
+			
 	}
 
 }
