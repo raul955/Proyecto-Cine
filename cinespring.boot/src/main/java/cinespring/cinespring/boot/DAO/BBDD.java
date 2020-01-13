@@ -1,12 +1,6 @@
 package cinespring.cinespring.boot.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import cinespring.cinespring.boot.elementos.pelicula;
 import cinespring.cinespring.boot.elementos.calificacion;
+import cinespring.cinespring.boot.elementos.pelicula;
 import cinespring.cinespring.boot.elementos.usuario;
 
 public class BBDD implements BBDDDAO {
@@ -273,6 +267,7 @@ public class BBDD implements BBDDDAO {
 		return lista;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<pelicula> informacionPel(String nombre) throws ClassNotFoundException, SQLException {
 
 		ArrayList<pelicula> lista = new ArrayList<pelicula>();
@@ -296,6 +291,7 @@ public class BBDD implements BBDDDAO {
 	
 	public void addCalificacion (int calificacion, int id) {
 		
+		
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 		
@@ -304,9 +300,7 @@ public class BBDD implements BBDDDAO {
 		cal.setId(id);
 
 		entitymanager.persist(cal);
-		
-		
-		entitymanager.getTransaction().commit();
+		entitymanager.getTransaction().commit();				
 		
 	}
 	

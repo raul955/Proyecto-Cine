@@ -23,16 +23,26 @@ public class calificacion {
 	}
 
 	public calificacion(double calificacion, int id) {
-		super();
-		this.calificacion = calificacion;
+		super();	
 		this.id = id;
+		
+		if(calificacion>=0 && calificacion <=10) {
+			this.calificacion = calificacion;
+		}else {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	
 
 	public calificacion(double calificacion, int id, int idd) {
 		super();
-		this.calificacion = calificacion;
+		
+		if(calificacion>=0 && calificacion <=10) {
+			this.calificacion = calificacion;
+		}else {
+			throw new IllegalArgumentException();
+		}
 		this.id = id;
 		this.idd = idd;
 	}
@@ -42,7 +52,11 @@ public class calificacion {
 	}
 
 	public void setCalificacion(double calificacion) {
-		this.calificacion = calificacion;
+		if(calificacion>=0 && calificacion <=10) {
+			this.calificacion = calificacion;
+		}else {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public int getId() {

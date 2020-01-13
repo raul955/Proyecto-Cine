@@ -175,7 +175,6 @@ public class Controlador {
 			request.setAttribute("men", mensaje);
 
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ModelAndView("/errorExistente");
 		} catch (SQLException e) {
@@ -359,12 +358,16 @@ public class Controlador {
 	
 	@RequestMapping(method= { RequestMethod.POST, RequestMethod.GET } , value="/addCal")
     public ModelAndView addCalificaciones(HttpServletRequest request) throws ServletException, IOException, ClassNotFoundException, SQLException {
-	
+		
+		try {
 		int calificacion = Integer.parseInt(request.getParameter("calificacion"));
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		BBDD.addCalificacion(calificacion, id);
 		BBDD.actualizarCalificacion(id);
+		}catch(IllegalArgumentException e) {
+			return new ModelAndView("/errorCalificacion");
+		}
 		
 		return new ModelAndView("/calificacionEnviada");
 	}

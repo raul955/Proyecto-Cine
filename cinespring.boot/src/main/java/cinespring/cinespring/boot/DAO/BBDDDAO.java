@@ -30,5 +30,6 @@ public interface BBDDDAO {
 	
 	public List<pelicula> informacionPel(String nombre) throws ClassNotFoundException, SQLException;
 	
-	public void actualizarCalificacion(int id);
+	public void actualizarCalificacion(int id)throws IllegalArgumentException;
+	public void addCalificacion (int calificacion, int id)throws IllegalArgumentException;
 }
